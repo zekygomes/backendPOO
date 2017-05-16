@@ -4,11 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.diskrango.models.Cliente;
 import com.diskrango.models.dao.ClienteDao;
 
-@Controller
+@RestController
 @RequestMapping(value="/cliente")
 public class ControleCliente {
 
@@ -16,7 +17,6 @@ public class ControleCliente {
   private ClienteDao _clienteDao;
   
   @RequestMapping(value="/apagar")
-  @ResponseBody
   public String delete(long id) {
     try {
       Cliente cliente = new Cliente(id);
@@ -29,7 +29,6 @@ public class ControleCliente {
   }
   
   @RequestMapping(value="/pegar-por-email")
-  @ResponseBody
   public String getByEmail(String email) {
     String idCliente;
     try {
@@ -43,7 +42,6 @@ public class ControleCliente {
   }
 
   @RequestMapping(value="/salvar")
-  @ResponseBody
   public String salvar(String email, String nome) {
     try {
     	Cliente cliente = new Cliente(email, nome);
