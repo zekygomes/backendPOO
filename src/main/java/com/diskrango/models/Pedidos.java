@@ -15,8 +15,8 @@ public class Pedidos {
 	private int idPedido;
 
 	private String data;
-	private Entregador codEntregador;
-	private Cliente codCliente;
+	private String codEntregador;
+	private String codCliente;
 	private String formaPagamento;
 	private boolean status;
 	private int qntDevolucoes;
