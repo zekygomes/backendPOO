@@ -1,11 +1,13 @@
 package com.diskrango.models;
 
-/**
- * Created by mauricio on 14/05/17.
- */
-public abstract class Pessoa {
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 
-    private String nome;
+@MappedSuperclass
+public class Pessoa {
+	
+	@Column
+    protected String nome;
 
     public String getNome() {
         return nome;

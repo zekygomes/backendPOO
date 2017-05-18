@@ -17,7 +17,7 @@ public class ControleCliente {
   private ClienteDao _clienteDao;
   
   @RequestMapping(value="/apagar")
-  public String delete(long id) {
+  public String delete(int id) {
     try {
       Cliente cliente = new Cliente(id);
       _clienteDao.apagar(cliente);

@@ -42,7 +42,7 @@ public class ClienteDao {
         .uniqueResult();
   }
 
-  public Cliente getById(long id) {
+  public Cliente getById(int id) {
     return (Cliente) getSession().load(Cliente.class, id);
   }
 

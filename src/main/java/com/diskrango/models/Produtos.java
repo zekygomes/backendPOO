@@ -1,21 +1,36 @@
 package com.diskrango.models;
 
-import javax.persistence.Entity;
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
 
-@Entity
-@Table(name="produtos")
+@MappedSuperclass
 public class Produtos {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int codProduto;
+	protected int codProduto;
 	
-	private String nome;
-	private float preco;
-	private int nota;
-	private String tipoProduto;
+	@Column
+	protected String nome;
+	@Column
+	protected double valor;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
 }

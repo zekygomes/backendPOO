@@ -1,12 +1,12 @@
 package com.diskrango.models;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -16,30 +16,29 @@ public class Cliente extends Pessoa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idCliente;
-
-	private String nome;
-
+	
+	@Column
 	private String email;
-
+	@Column
 	private String endereco;
-
+	@Column
 	private String telefone;
-
+	@Column
 	private String pontoDeReferencia;
 
 	public Cliente() {
 	}
 	
-	public Cliente(long id) {
+	public Cliente(int id) {
 	}
 	
 	public Cliente(String nome, String email) {
-		this.nome = nome;
+		super.nome = nome;
 		this.email = email;
 	}
 
 	public Cliente(int id, String nome, String endereco, String telefone, String pontoDeReferencia) {
-		this.idCliente = id;
+		this.setIdCliente(id);
 		super.setNome(nome);
 		this.endereco = endereco;
 		this.telefone = telefone;
@@ -47,11 +46,11 @@ public class Cliente extends Pessoa {
 	}
 
 	public int getId() {
-		return idCliente;
+		return getIdCliente();
 	}
 
 	public void setId(int id) {
-		this.idCliente = id;
+		this.setIdCliente(id);
 	}
 
 	public String getEndereco() {
@@ -80,7 +79,15 @@ public class Cliente extends Pessoa {
 
 	@Override
 	public String toString() {
-		return "Cliente{ id='" + idCliente + '\'' + ", nome='" + getNome() + '\'' + ", endereço='" + endereco + '\''
+		return "Cliente{ id='" + getIdCliente() + '\'' + ", nome='" + getNome() + '\'' + ", endereço='" + endereco + '\''
 				+ ", telefone='" + telefone + '\'' + '}';
+	}
+
+	public int getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
 	}
 }
