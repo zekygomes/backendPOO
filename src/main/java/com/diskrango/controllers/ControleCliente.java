@@ -1,9 +1,11 @@
 package com.diskrango.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.diskrango.models.Cliente;
@@ -13,8 +15,24 @@ import com.diskrango.models.dao.ClienteDao;
 @RequestMapping(value="/cliente")
 public class ControleCliente {
 
+	
   @Autowired
   private ClienteDao _clienteDao;
+  
+  @RequestMapping(value="/pegar-todos")
+  public List<Cliente> getAll() {
+ 
+	  List<Cliente> clientes = new ArrayList<Cliente>();
+    try {
+    	clientes = _clienteDao.getAll();
+    	//result.toJSONString(clientes);
+    }
+    catch(Exception ex) {
+      ex.getMessage();
+    }
+    return clientes;
+  }
+
   
   @RequestMapping(value="/apagar")
   public String delete(int id) {
@@ -29,8 +47,7 @@ public class ControleCliente {
   }
   
   @RequestMapping(value="/pegar-por-email")
-  public String getByEmail(String email) {
-    String idCliente;
+  public String getByEmail(@RequestParam (value="email",required=true) String email) {    String idCliente;
     try {
     	Cliente cliente = _clienteDao.getByEmail(email);
       idCliente = String.valueOf(cliente.getId());

@@ -1,5 +1,6 @@
 package com.diskrango.models.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -31,8 +32,10 @@ public class ClienteDao {
   }
   
   @SuppressWarnings("unchecked")
-  public List getAll() {
-    return getSession().createQuery("from cliente").list();
+  public List<Cliente> getAll() {
+	  List<Cliente> clientes = new ArrayList<Cliente>();
+	  clientes = getSession().createQuery("from cliente").list();
+    return clientes;
   }
   
   public Cliente getByEmail(String email) {

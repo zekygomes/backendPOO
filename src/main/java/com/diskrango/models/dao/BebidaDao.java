@@ -1,5 +1,6 @@
 package com.diskrango.models.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -30,9 +31,18 @@ public class BebidaDao {
     getSession().delete(bebida);
   }
   
+  public Bebida getByNome(String nome) {
+	    return (Bebida) getSession().createQuery(
+	        "from bebidas where nome = :nome")
+	        .setParameter("nome", nome)
+	        .uniqueResult();
+	  }
+  
   @SuppressWarnings("unchecked")
-  public List getAll() {
-    return getSession().createQuery("from bebidas").list();
+  public List<Bebida> getAll() {
+	List<Bebida> bebidas = new ArrayList<Bebida>();
+	bebidas = getSession().createQuery("from bebidas").list();
+    return bebidas;
   }
   
   public Bebida getById(int codProduto) {

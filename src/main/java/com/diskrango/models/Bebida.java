@@ -12,15 +12,22 @@ public class Bebida extends Produtos{
     private int qtdEstoque;
 
     public Bebida(){}
-
+    
+    public Bebida(int codProduto){
+    	super.codProduto = codProduto;
+    }
+    
     public Bebida(int id, String nome, double valor, int quantideEmEstoque) {
-        super.codProduto = id;
-        super.nome = nome;
-        super.valor = valor;
+        this.codProduto = id;
+        this.nome = nome;
+        this.valor = valor;
         this.qtdEstoque = quantideEmEstoque;
     }
 
-
+    public int getCod(){
+    	return this.codProduto;
+    }
+    
     public int getQuantideEmEstoque() {
         return qtdEstoque;
     }
