@@ -1,6 +1,7 @@
 package com.diskrango.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.diskrango.models.Bebida;
@@ -13,11 +14,34 @@ public class ControleBebida {
   @Autowired
   private BebidaDao _bebidaDao;
   
+  @RequestMapping(value="/cadastrar")
+  public String salvar(String nome, double valor, int qtdEstoque) {
+    try {
+    	Bebida bebida = new Bebida(nome, valor, qtdEstoque);
+      _bebidaDao.salvar(bebida);
+    }
+    catch(Exception ex) {
+      return ex.getMessage();
+    }
+    return "Bebida cadastrada com sucesso!";
+  }
+  
+  @RequestMapping(value="/atualizar")
+  public String salvar(int codProduto, int qtdEstoque) {
+    try {
+    	Bebida bebida = _bebidaDao.getById(qtdEstoque);
+    	_bebidaDao.update(bebida);
+    }
+    catch(Exception ex) {
+      return ex.getMessage();
+    }
+    return "Bebida atualizada com sucesso!";
+  }
+  
   @RequestMapping(value="/apagar")
   public String delete(int codProduto) {
     try {
-    	Bebida bebida = new Bebida(codProduto);
-      _bebidaDao.apagar(bebida);
+      _bebidaDao.apagar(codProduto);
     }
     catch(Exception ex) {
       return ex.getMessage();
@@ -26,7 +50,7 @@ public class ControleBebida {
   }
   
   @RequestMapping(value="/pegar-por-nome")
-  public String getByNome(String nome) {
+  public String getByNome(@RequestParam (value="nome",required=true)String nome) {
     String codProduto;
     try {
     	Bebida bebida = _bebidaDao.getByNome(nome);
@@ -38,16 +62,5 @@ public class ControleBebida {
     return "O código da Bebida é: " + codProduto;
   }
 
-  @RequestMapping(value="/salvar")
-  public String salvar(int id, String nome, double valor, int quantideEmEstoque) {
-    try {
-    	Bebida bebida = new Bebida(id, nome, valor, quantideEmEstoque);
-      _bebidaDao.salvar(bebida);
-    }
-    catch(Exception ex) {
-      return ex.getMessage();
-    }
-    return "Bebida cadastrada com sucesso!";
-  }
 
 }

@@ -29,8 +29,12 @@ public class PedidoDao {
     getSession().delete(pedido);
   }
   
+  public void apagar(int idPedido) {
+	    getSession().delete(idPedido);
+	  }
+  
   @SuppressWarnings("unchecked")
-  public List getAll() {
+  public List<Pedidos> getAll() {
     return getSession().createQuery("from pedidos").list();
   }
   

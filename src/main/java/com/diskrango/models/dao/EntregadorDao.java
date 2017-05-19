@@ -29,8 +29,12 @@ public class EntregadorDao {
     getSession().delete(entregador);
   }
   
+  public void apagar(int idEntregador) {
+	    getSession().delete(idEntregador);
+	  }
+  
   @SuppressWarnings("unchecked")
-  public List getAll() {
+  public List<Entregador> getAll() {
     return getSession().createQuery("from entregador").list();
   }
   
@@ -42,7 +46,7 @@ public class EntregadorDao {
   }
 
   public Entregador getById(int id) {
-    return (Entregador) getSession().load(Entregador.class, id);
+    return getSession().load(Entregador.class, id);
   }
 
   public void update(Entregador entregador) {

@@ -47,10 +47,11 @@ public class ControleCliente {
   }
   
   @RequestMapping(value="/pegar-por-email")
-  public String getByEmail(@RequestParam (value="email",required=true) String email) {    String idCliente;
+  public String getByEmail(@RequestParam (value="email",required=true) String email) {    
+	  String idCliente;
     try {
     	Cliente cliente = _clienteDao.getByEmail(email);
-      idCliente = String.valueOf(cliente.getId());
+      idCliente = String.valueOf(cliente.getIdCliente());
     }
     catch(Exception ex) {
       return "Cliente não encontrado";

@@ -11,30 +11,24 @@ public class Bebida extends Produtos{
 	@Column
     private int qtdEstoque;
 
-    public Bebida(){}
+    public int getQtdEstoque() {
+		return qtdEstoque;
+	}
+
+	public void setQtdEstoque(int qtdEstoque) {
+		this.qtdEstoque = qtdEstoque;
+	}
+
+	public Bebida(){}
     
-    public Bebida(int codProduto){
-    	super.codProduto = codProduto;
-    }
-    
-    public Bebida(int id, String nome, double valor, int quantideEmEstoque) {
-        this.codProduto = id;
+    public Bebida(String nome, double valor, int qtdEstoque) {
         this.nome = nome;
         this.valor = valor;
-        this.qtdEstoque = quantideEmEstoque;
+        this.qtdEstoque = qtdEstoque;
     }
 
     public int getCod(){
     	return this.codProduto;
     }
     
-    public int getQuantideEmEstoque() {
-        return qtdEstoque;
-    }
-
-    public void setQuantideEmEstoque(int quantideEmEstoque) {
-        this.qtdEstoque = quantideEmEstoque;
-    }
-	
-
 }

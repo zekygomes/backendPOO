@@ -17,6 +17,22 @@ public class Entregador extends Pessoa{
 	
 	@Column
 	private String placaVeiculo;
+	
+	
+
+	public Entregador(String nome, int idEntregador, String placaVeiculo) {
+		this.nome = nome;
+		this.idEntregador = idEntregador;
+		this.placaVeiculo = placaVeiculo;
+	}
+
+	public int getIdEntregador() {
+		return idEntregador;
+	}
+
+	public void setIdEntregador(int idEntregador) {
+		this.idEntregador = idEntregador;
+	}
 
 	public String getPlacaVeiculo() {
 		return placaVeiculo;

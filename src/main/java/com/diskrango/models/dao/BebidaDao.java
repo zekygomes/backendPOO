@@ -31,6 +31,10 @@ public class BebidaDao {
     getSession().delete(bebida);
   }
   
+  public void apagar(int codProduto) {
+	    getSession().delete(codProduto);
+	  }
+  
   public Bebida getByNome(String nome) {
 	    return (Bebida) getSession().createQuery(
 	        "from bebidas where nome = :nome")

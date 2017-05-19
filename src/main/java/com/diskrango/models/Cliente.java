@@ -45,10 +45,6 @@ public class Cliente extends Pessoa {
 		this.pontoDeReferencia = pontoDeReferencia;
 	}
 
-	public int getId() {
-		return getIdCliente();
-	}
-
 	public void setId(int id) {
 		this.setIdCliente(id);
 	}
@@ -84,7 +80,7 @@ public class Cliente extends Pessoa {
 	}
 
 	public int getIdCliente() {
-		return idCliente;
+		return this.idCliente;
 	}
 
 	public void setIdCliente(int idCliente) {
