@@ -34,7 +34,7 @@ public class RefeicoesDao {
     return getSession().createQuery("from refeicoes").list();
   }
   
-  public Refeicoes getById(int codProduto) {
+  public Refeicoes getById(Long codProduto) {
     return (Refeicoes) getSession().load(Refeicoes.class, codProduto);
   }
 

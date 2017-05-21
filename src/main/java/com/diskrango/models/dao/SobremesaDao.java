@@ -34,7 +34,7 @@ public class SobremesaDao {
     return getSession().createQuery("from sobremesas").list();
   }
   
-  public Sobremesa getById(int codProduto) {
+  public Sobremesa getById(Long codProduto) {
     return (Sobremesa) getSession().load(Sobremesa.class, codProduto);
   }
 

@@ -34,19 +34,20 @@ public class ClienteDao {
   @SuppressWarnings("unchecked")
   public List<Cliente> getAll() {
 	  List<Cliente> clientes = new ArrayList<Cliente>();
-	  clientes = getSession().createQuery("from cliente").list();
+	  clientes = getSession().createQuery("from Cliente").list();
     return clientes;
   }
   
-  public Cliente getByEmail(String email) {
-    return (Cliente) getSession().createQuery(
-        "from cliente where email = :email")
-        .setParameter("email", email)
-        .uniqueResult();
+  public Cliente getByName(String nome) {
+	Cliente cliente = (Cliente) getSession().createQuery(
+	        "from Cliente where nome = :nome")
+	        .setParameter("nome", nome)
+	        .uniqueResult();
+    return cliente;
   }
 
-  public Cliente getById(int id) {
-    return (Cliente) getSession().load(Cliente.class, id);
+  public Cliente getById(Long id) {
+    return (Cliente) getSession().get(Cliente.class, id);
   }
 
   public void update(Cliente cliente) {

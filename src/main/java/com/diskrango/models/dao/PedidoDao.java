@@ -29,7 +29,7 @@ public class PedidoDao {
     getSession().delete(pedido);
   }
   
-  public void apagar(int idPedido) {
+  public void apagar(Long idPedido) {
 	    getSession().delete(idPedido);
 	  }
   
@@ -38,7 +38,7 @@ public class PedidoDao {
     return getSession().createQuery("from pedidos").list();
   }
   
-  public Pedidos getById(int idPedido) {
+  public Pedidos getById(Long idPedido) {
     return (Pedidos) getSession().load(Pedidos.class, idPedido);
   }
 

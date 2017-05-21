@@ -27,9 +27,9 @@ public class ControleBebida {
   }
   
   @RequestMapping(value="/atualizar")
-  public String salvar(int codProduto, int qtdEstoque) {
+  public String salvar(Long codProduto, int qtdEstoque) {
     try {
-    	Bebida bebida = _bebidaDao.getById(qtdEstoque);
+    	Bebida bebida = _bebidaDao.getById(codProduto);
     	_bebidaDao.update(bebida);
     }
     catch(Exception ex) {
@@ -39,7 +39,7 @@ public class ControleBebida {
   }
   
   @RequestMapping(value="/apagar")
-  public String delete(int codProduto) {
+  public String delete(Long codProduto) {
     try {
       _bebidaDao.apagar(codProduto);
     }

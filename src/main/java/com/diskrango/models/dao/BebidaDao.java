@@ -27,8 +27,8 @@ public class BebidaDao {
     getSession().save(bebida);
   }
   
-  public void apagar(Bebida bebida) {
-    getSession().delete(bebida);
+  public void apagar(Long codProduto) {
+    getSession().delete(codProduto);
   }
   
   public void apagar(int codProduto) {
@@ -49,7 +49,7 @@ public class BebidaDao {
     return bebidas;
   }
   
-  public Bebida getById(int codProduto) {
+  public Bebida getById(Long codProduto) {
     return (Bebida) getSession().load(Bebida.class, codProduto);
   }
 

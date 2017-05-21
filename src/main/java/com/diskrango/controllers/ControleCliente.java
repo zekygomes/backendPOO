@@ -1,6 +1,5 @@
 package com.diskrango.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,30 +13,25 @@ import com.diskrango.models.dao.ClienteDao;
 @RestController
 @RequestMapping(value="/cliente")
 public class ControleCliente {
-
 	
   @Autowired
   private ClienteDao _clienteDao;
   
+  
   @RequestMapping(value="/pegar-todos")
   public List<Cliente> getAll() {
  
-	  List<Cliente> clientes = new ArrayList<Cliente>();
-    try {
-    	clientes = _clienteDao.getAll();
+	  List<Cliente> clientes = _clienteDao.getAll();
     	//result.toJSONString(clientes);
-    }
-    catch(Exception ex) {
-      ex.getMessage();
-    }
+
     return clientes;
   }
 
   
   @RequestMapping(value="/apagar")
-  public String delete(int id) {
+  public String delete(@RequestParam (value="id",required=true)Long id) {
     try {
-      Cliente cliente = new Cliente(id);
+      Cliente cliente = getById(id);
       _clienteDao.apagar(cliente);
     }
     catch(Exception ex) {
@@ -46,17 +40,28 @@ public class ControleCliente {
     return "Cliente apagado com sucesso!";
   }
   
-  @RequestMapping(value="/pegar-por-email")
-  public String getByEmail(@RequestParam (value="email",required=true) String email) {    
-	  String idCliente;
+  @RequestMapping(value="/pegar-por-nome")
+  public Cliente getByName(@RequestParam (value="nome",required=true) String nome) {    
+	  try {
+		  return _clienteDao.getByName(nome);
+	  }
+    catch(Exception ex) {
+    	System.out.println(ex.getMessage());
+        return null;
+      }
+  }
+  
+  @RequestMapping(value="/pegar-por-id")
+  public Cliente getById(@RequestParam (value="id",required=true) Long id) {    
+	
     try {
-    	Cliente cliente = _clienteDao.getByEmail(email);
-      idCliente = String.valueOf(cliente.getIdCliente());
+    	return _clienteDao.getById(id);
     }
     catch(Exception ex) {
-      return "Cliente não encontrado";
+      System.out.println(ex.getMessage());
+      return null;
     }
-    return "O id do cliente é: " + idCliente;
+
   }
 
   @RequestMapping(value="/salvar")

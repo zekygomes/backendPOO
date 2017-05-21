@@ -12,7 +12,7 @@ public class Pedidos {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int idPedido;
+	private Long idPedido;
 
 	private String data;
 	private String codEntregador;

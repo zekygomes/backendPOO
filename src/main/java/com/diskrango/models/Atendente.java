@@ -6,19 +6,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name="atendentes")
 public class Atendente extends Pessoa{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int idAtendente;
+	private Long idAtendente;
 
-	public int getIdAtendente() {
+	public Long getIdAtendente() {
 		return idAtendente;
 	}
 
-	public void setIdAtendente(int idAtendente) {
+	public void setIdAtendente(Long idAtendente) {
+		this.idAtendente = idAtendente;
+	}
+	@JsonCreator
+	public Atendente(@JsonProperty("idAtendente") Long idAtendente, @JsonProperty("nome")String nome) {
+		this.nome = nome;
 		this.idAtendente = idAtendente;
 	}
 	

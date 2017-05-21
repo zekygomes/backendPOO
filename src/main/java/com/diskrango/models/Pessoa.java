@@ -6,7 +6,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class Pessoa {
 	
-	@Column
+	@Column(name ="nome")
     protected String nome;
 
     public String getNome() {

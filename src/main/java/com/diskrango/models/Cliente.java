@@ -8,6 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 @Entity
 @Table(name="clientes")
@@ -15,37 +18,40 @@ public class Cliente extends Pessoa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int idCliente;
+	private Long idCliente;
 	
-	@Column
+	@Column(name="email_cliente")
 	private String email;
-	@Column
+	@Column(name="endereco_cliente")
 	private String endereco;
-	@Column
+	@Column(name="telefone_cliente")
 	private String telefone;
-	@Column
+	@Column(name="ponto_referencia_cliente")
 	private String pontoDeReferencia;
 
 	public Cliente() {
 	}
 	
-	public Cliente(int id) {
+	public Cliente(Long id) {
 	}
 	
-	public Cliente(String nome, String email) {
+	public Cliente(String email, String nome) {
 		super.nome = nome;
 		this.email = email;
 	}
-
-	public Cliente(int id, String nome, String endereco, String telefone, String pontoDeReferencia) {
-		this.setIdCliente(id);
-		super.setNome(nome);
+	@JsonCreator
+	public Cliente(@JsonProperty("idCliente")Long id, @JsonProperty("nome")String nome, @JsonProperty("emailCliente")String email, 
+					@JsonProperty("enderecoCliente")String endereco, @JsonProperty("telefoneCliente")String telefone, 
+					@JsonProperty("pontoReferenciaCliente")String pontoDeReferencia) {
+		this.idCliente =id;
+		this.nome = nome;
+		this.email = email;
 		this.endereco = endereco;
 		this.telefone = telefone;
 		this.pontoDeReferencia = pontoDeReferencia;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.setIdCliente(id);
 	}
 
@@ -75,15 +81,17 @@ public class Cliente extends Pessoa {
 
 	@Override
 	public String toString() {
-		return "Cliente{ id='" + getIdCliente() + '\'' + ", nome='" + getNome() + '\'' + ", endereço='" + endereco + '\''
-				+ ", telefone='" + telefone + '\'' + '}';
+		return "Cliente{ id='" + this.idCliente + '\'' + 
+						", nome='" + this.nome + '\'' + 
+						", endereço='" + this.endereco + '\''+
+						", telefone='" + this.telefone + '\'' + '}';
 	}
 
-	public int getIdCliente() {
+	public Long getIdCliente() {
 		return this.idCliente;
 	}
 
-	public void setIdCliente(int idCliente) {
+	public void setIdCliente(Long idCliente) {
 		this.idCliente = idCliente;
 	}
 }

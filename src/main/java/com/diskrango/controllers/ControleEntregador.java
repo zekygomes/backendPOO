@@ -19,9 +19,9 @@ public class ControleEntregador {
   
 
   @RequestMapping(value="/salvar")
-  public String salvar(String nome, int idEntregador, String placaVeiculo) {
+  public String salvar(Long idEntregador, String nome, String placaVeiculo) {
     try {
-    	Entregador entregador = new Entregador(nome, idEntregador, placaVeiculo);
+    	Entregador entregador = new Entregador(idEntregador, nome, placaVeiculo);
       _entregadorDao.salvar(entregador);
     }
     catch(Exception ex) {
@@ -58,7 +58,7 @@ public class ControleEntregador {
 
   
   @RequestMapping(value="/apagar")
-  public String delete(int idEntregador) {
+  public String delete(Long idEntregador) {
     try {
     	//Entregador entregador = new Entregador(id);
       _entregadorDao.apagar(idEntregador);

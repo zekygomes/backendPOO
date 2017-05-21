@@ -11,11 +11,11 @@ public class Produtos {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	protected int codProduto;
+	protected Long codProduto;
 	
-	@Column
+	@Column(name="nomeProduto")
 	protected String nome;
-	@Column
+	@Column(name="valorProduto")
 	protected double valor;
 
     public String getNome() {

@@ -29,7 +29,7 @@ public class EntregadorDao {
     getSession().delete(entregador);
   }
   
-  public void apagar(int idEntregador) {
+  public void apagar(Long idEntregador) {
 	    getSession().delete(idEntregador);
 	  }
   
@@ -45,7 +45,7 @@ public class EntregadorDao {
         .uniqueResult();
   }
 
-  public Entregador getById(int id) {
+  public Entregador getById(Long id) {
     return getSession().load(Entregador.class, id);
   }
 
