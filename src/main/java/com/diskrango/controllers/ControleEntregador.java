@@ -10,7 +10,7 @@ import com.diskrango.models.Entregador;
 import com.diskrango.models.dao.EntregadorDao;
 
 @RestController
-@RequestMapping(value="/entregador")
+@RequestMapping(value="/api/entregador")
 public class ControleEntregador {
 
 	

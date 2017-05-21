@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MainController {
 	
-  @RequestMapping("/")
+  @RequestMapping("/api/")
   @ResponseBody
   public TesteRest index(String nome, String sobrenome) {
     return new TesteRest(nome, sobrenome);

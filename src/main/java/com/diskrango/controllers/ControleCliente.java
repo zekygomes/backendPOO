@@ -11,7 +11,7 @@ import com.diskrango.models.Cliente;
 import com.diskrango.models.dao.ClienteDao;
 
 @RestController
-@RequestMapping(value="/cliente")
+@RequestMapping(value="/api/cliente")
 public class ControleCliente {
 	
   @Autowired
@@ -22,7 +22,6 @@ public class ControleCliente {
   public List<Cliente> getAll() {
  
 	  List<Cliente> clientes = _clienteDao.getAll();
-    	//result.toJSONString(clientes);
 
     return clientes;
   }
@@ -65,9 +64,9 @@ public class ControleCliente {
   }
 
   @RequestMapping(value="/salvar")
-  public String salvar(String email, String nome) {
+  public String salvar(Long id, String nome, String email,String endereco,String telefone, String pontoDeReferencia) {
     try {
-    	Cliente cliente = new Cliente(email, nome);
+    	Cliente cliente = new Cliente(id, nome, email, endereco, telefone, pontoDeReferencia);
       _clienteDao.salvar(cliente);
     }
     catch(Exception ex) {
@@ -75,5 +74,6 @@ public class ControleCliente {
     }
     return "Cliente salvo com sucesso!";
   }
+  
 
 }

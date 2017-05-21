@@ -8,7 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.diskrango.models.Pedidos;
+import com.diskrango.models.Pedido;
 
 @Repository
 @Transactional
@@ -21,11 +21,11 @@ public class PedidoDao {
     return _sessionFactory.getCurrentSession();
   }
 
-  public void salvar(Pedidos pedido) {
+  public void salvar(Pedido pedido) {
     getSession().save(pedido);
   }
   
-  public void apagar(Pedidos pedido) {
+  public void apagar(Pedido pedido) {
     getSession().delete(pedido);
   }
   
@@ -34,15 +34,15 @@ public class PedidoDao {
 	  }
   
   @SuppressWarnings("unchecked")
-  public List<Pedidos> getAll() {
+  public List<Pedido> getAll() {
     return getSession().createQuery("from pedidos").list();
   }
   
-  public Pedidos getById(Long idPedido) {
-    return (Pedidos) getSession().load(Pedidos.class, idPedido);
+  public Pedido getById(Long idPedido) {
+    return (Pedido) getSession().load(Pedido.class, idPedido);
   }
 
-  public void update(Pedidos pedido) {
+  public void update(Pedido pedido) {
     getSession().update(pedido);
   }
 
