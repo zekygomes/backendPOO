@@ -12,37 +12,49 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name="entregador")
-public class Entregador extends Pessoa{
+public class Entregador {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long idEntregador;
+	private Long id_entregador;
 	
-	@Column(name="placaVeiculo")
-	private String placaVeiculo;
+	@Column(name="placa_veiculo")
+	private String placa_veiculo;
 	
+	@Column(name ="nome")
+    protected String nome;
 	
+
 	@JsonCreator
 	public Entregador(@JsonProperty("idEntregador")Long idEntregador, @JsonProperty("nome")String nome, @JsonProperty("placaVeiculo")String placaVeiculo) {
 		this.nome = nome;
-		this.idEntregador = idEntregador;
-		this.placaVeiculo = placaVeiculo;
+		this.id_entregador = idEntregador;
+		this.placa_veiculo = placaVeiculo;
 	}
 
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+	
 	public Long getIdEntregador() {
-		return idEntregador;
+		return id_entregador;
 	}
 
 	public void setIdEntregador(Long idEntregador) {
-		this.idEntregador = idEntregador;
+		this.id_entregador = idEntregador;
 	}
 
 	public String getPlacaVeiculo() {
-		return placaVeiculo;
+		return placa_veiculo;
 	}
 
 	public void setPlacaVeiculo(String placaVeiculo) {
-		this.placaVeiculo = placaVeiculo;
+		this.placa_veiculo = placaVeiculo;
 	}
 
 }

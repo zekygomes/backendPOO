@@ -11,45 +11,55 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
-@Table(name = "produto")
+@Table(name="produto")
 public class Produto {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	protected Long cod_produto;
+	private Long cod_produto;
 	
-	@Column(name="nome_produto")
-	protected String nome_produto;
+	@Column(name="nome")
+	private String nome;
 
 	@Column(name="preco_produto")
-	protected Double preco_produto;
+	private Double preco_produto;
 	
 	@Column(name="tipo_produto")
-	protected String tipo_produto;
+	private String tipo_produto;
 	
 	@Column(name="qnt_produto")
-	protected Integer qnt_produto;
+	private Integer qnt_estoque;
 	
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "produto")
     private List<ItensPedido> itensPedido;
+    
+    public Produto(){}
 	
-	
-	public Produto(String nome, Double preco, String tipoProduto, Integer qntProduto) {
-		super();
-		this.nome_produto = nome;
+    @JsonCreator
+	public Produto(@JsonProperty("codProduto")Long codProduto,@JsonProperty("nome")String nome, @JsonProperty("precoProduto")Double preco, 
+			@JsonProperty("tipoProduto")String tipoProduto, @JsonProperty("qntEstoque")Integer qntEstoque) {
+		this.cod_produto = codProduto;
+		this.nome = nome;
 		this.preco_produto = preco;
 		this.tipo_produto = tipoProduto;
-		this.qnt_produto = qntProduto;
+		this.qnt_estoque = qntEstoque;
 	}
 
 	@Override
 	public String toString() {
 		return "Produto{codProduto='" + this.cod_produto + '\'' + 
-                ", nome='" + this.nome_produto + '\'' +
+                ", nome='" + this.nome + '\'' +
                 ", descricao='" + this.tipo_produto + '\'' +
                 ", preco='" + this.preco_produto + '\'' + 
-                ", quantidade='" + this.qnt_produto +'\''+'}';
+                ", quantidade='" + this.qnt_estoque +'\''+'}';
+	}
+	
+	public void atualizarEstoque(Produto produto, Integer qntEstoque){
+		produto.qnt_estoque = qntEstoque;
 	}
 
 	public Long getCodProduto() {
@@ -61,11 +71,11 @@ public class Produto {
 	}
 
 	public String getNome() {
-		return nome_produto;
+		return nome;
 	}
 
 	public void setNome(String nome) {
-		this.nome_produto = nome;
+		this.nome = nome;
 	}
 
 	public Double getValor() {
@@ -85,11 +95,11 @@ public class Produto {
 	}
 
 	public Integer getQntProduto() {
-		return qnt_produto;
+		return qnt_estoque;
 	}
 
 	public void setQntProduto(Integer qntProduto) {
-		this.qnt_produto = qntProduto;
+		this.qnt_estoque = qntProduto;
 	}
 
 

@@ -16,8 +16,7 @@ public class ControleCliente {
 	
   @Autowired
   private ClienteDao _clienteDao;
-  
-  
+    
   @RequestMapping(value="/pegar-todos")
   public List<Cliente> getAll() {
  
@@ -25,7 +24,6 @@ public class ControleCliente {
 
     return clientes;
   }
-
   
   @RequestMapping(value="/apagar")
   public String delete(@RequestParam (value="id",required=true)Long id) {
@@ -64,9 +62,9 @@ public class ControleCliente {
   }
 
   @RequestMapping(value="/salvar")
-  public String salvar(Long id, String nome, String email,String endereco,String telefone, String pontoDeReferencia) {
+  public String salvar(Long id, String nome, String email,String endereco,String telefone, String pontoDeReferencia, Boolean situacao) {
     try {
-    	Cliente cliente = new Cliente(id, nome, email, endereco, telefone, pontoDeReferencia);
+    	Cliente cliente = new Cliente(id, nome, email, endereco, telefone, pontoDeReferencia, situacao);
       _clienteDao.salvar(cliente);
     }
     catch(Exception ex) {
