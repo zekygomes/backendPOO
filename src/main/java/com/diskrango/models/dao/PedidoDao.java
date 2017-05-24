@@ -1,4 +1,5 @@
 package com.diskrango.models.dao;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -8,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.diskrango.models.Cliente;
 import com.diskrango.models.Pedido;
 
 @Repository
@@ -30,12 +32,15 @@ public class PedidoDao {
   }
   
   public void apagar(Long idPedido) {
-	    getSession().delete(idPedido);
+	  
+	    apagar(getById(idPedido));
 	  }
   
   @SuppressWarnings("unchecked")
   public List<Pedido> getAll() {
-    return getSession().createQuery("from pedidos").list();
+	  List<Pedido> pedidos = new ArrayList<Pedido>();
+	  pedidos = getSession().createQuery("from Pedido").list();
+    return pedidos;
   }
   
   public Pedido getById(Long idPedido) {

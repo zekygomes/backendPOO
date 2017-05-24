@@ -52,8 +52,12 @@ public class ItensPedido {
 
 	@Override
 	public String toString() {
-		return "ItensPedido [id_itenspedido=" + id_itenspedido + ", preco_unitario=" + preco_unitario + ", quantidade="
-				+ quantidade + ", preco_total=" + preco_total + ", pedido=" + pedido + ", produto=" + produto + "]";
+		return "ItensPedido {id_itenspedido='" + id_itenspedido + '\'' + 
+				", preco_unitario='" + preco_unitario + '\'' + 
+				", quantidade='"+ quantidade + '\'' + 
+				", preco_total='" + preco_total + '\'' + 
+				", pedido='" + pedido + '\'' + 
+				", produto='" + produto + '\'' + "}";
 	}
 
 	public Long getId_itenspedido() {

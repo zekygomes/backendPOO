@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.criteria.From;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -45,8 +46,8 @@ public class Pedido {
     @Column(name="forma_pagamento")
 	private String forma_pagamento;
 	
-    @Column(name="status_pagamento")
-	private boolean status;
+    @Column(name="status_pedido")
+	private String status;
 
 	public Pedido(){
 	}
@@ -55,7 +56,7 @@ public class Pedido {
 	public Pedido(@JsonProperty("idPedido")Long id_pedido, @JsonProperty("dataPedido")Date data_pedido, 
 			@JsonProperty("valorTotal")Double valor_total, @JsonProperty("idCliente")Cliente cliente, 
 			@JsonProperty("itensPedido")List<ItensPedido> itensPedido, @JsonProperty("idEntregador")Entregador entregador, 
-			@JsonProperty("formaPagamento")String forma_pagamento, @JsonProperty("status")boolean status) {
+			@JsonProperty("formaPagamento")String forma_pagamento, @JsonProperty("status")String status) {
 		super();
 		this.id_pedido = id_pedido;
 		this.data_pedido = data_pedido;
@@ -66,12 +67,29 @@ public class Pedido {
 		this.forma_pagamento = forma_pagamento;
 		this.status = status;
 	}
+	
+	public Pedido(Long id_pedido, Date data_pedido, 
+			Cliente cliente, List<ItensPedido> itensPedido, Entregador entregador, 
+			String forma_pagamento) {
+		super();
+		this.id_pedido = id_pedido;
+		this.data_pedido = data_pedido;
+		this.cliente = cliente;
+		this.itensPedido = itensPedido;
+		this.entregador = entregador;
+		this.forma_pagamento = forma_pagamento;
+	}
 
 	@Override
 	public String toString() {
-		return "Pedido [id_pedido=" + id_pedido + ", data_pedido=" + data_pedido + ", valor_total=" + valor_total
-				+ ", cliente=" + cliente + ", itensPedido=" + itensPedido + ", entregador=" + entregador
-				+ ", forma_pagamento=" + forma_pagamento + ", status=" + status + "]";
+		return "Pedido [{id_pedido='" + id_pedido + '\'' +
+					 ", data_pedido='" + data_pedido + '\'' +
+					 ", valor_total='" + valor_total + '\'' +
+					 ", cliente='" + cliente + '\'' +
+					 ", ItensPedido {itensPedido='" + itensPedido + '\''+"}" +
+					 ", entregador='" + entregador + '\'' +
+					 ", forma_pagamento='" + forma_pagamento + '\'' +
+					 ", status='" + status + '\'' +"}]";
 	}
 
 	public Long getId_pedido() {
@@ -130,14 +148,29 @@ public class Pedido {
 		this.forma_pagamento = forma_pagamento;
 	}
 
-	public boolean isStatus() {
+	public String isStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	
+	private double gerarValorTotal(List<ItensPedido> itensPedido){
+		double result=0;
+		for(ItensPedido pedido: itensPedido ){
+			result += pedido.getPreco_total();
+		}
+		
+		return result;
+	}
 	
+	private void atualizarStatusPedido(String status){
+		this.status = status;
+	}
+	
+	private void cadastrarEntregador(Entregador entregador){
+		this.entregador = entregador;
+	}
 
 }
