@@ -24,11 +24,21 @@ public class Entregador {
 	@Column(name ="nome")
     protected String nome;
 	
-
+	public Entregador(){
+		new Entregador("João","HJH_9888");
+		new Entregador("Pedro","HHH-9999");
+		new Entregador("Paulo","HJJ-8888");
+	}
+	
 	@JsonCreator
 	public Entregador(@JsonProperty("idEntregador")Long idEntregador, @JsonProperty("nome")String nome, @JsonProperty("placaVeiculo")String placaVeiculo) {
 		this.nome = nome;
 		this.id_entregador = idEntregador;
+		this.placa_veiculo = placaVeiculo;
+	}
+	
+	public Entregador(String nome,String placaVeiculo) {
+		this.nome = nome;
 		this.placa_veiculo = placaVeiculo;
 	}
 

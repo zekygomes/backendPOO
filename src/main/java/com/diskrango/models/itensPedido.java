@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "itens_pedido")
-public class ItensPedido {
+public class itensPedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +38,7 @@ public class ItensPedido {
     private Produto produto;
     
     @JsonCreator
-	public ItensPedido(@JsonProperty("idItensPedido")Long id_itenspedido, @JsonProperty("precoUnitario")Double preco_unitario, 
+	public itensPedido(@JsonProperty("idItensPedido")Long id_itenspedido, @JsonProperty("precoUnitario")Double preco_unitario, 
 			@JsonProperty("quantidade")Integer quantidade, @JsonProperty("precoTotal")Double preco_total,
 			@JsonProperty("idPedido")Pedido pedido, @JsonProperty("idProduto")Produto produto) {
 		super();

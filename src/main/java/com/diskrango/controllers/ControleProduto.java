@@ -1,4 +1,5 @@
 package com.diskrango.controllers;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ public class ControleProduto {
   
 
   @RequestMapping(value="/salvar")
-  public String salvar(Long codProduto, String nome, Double preco,String tipoProduto,Integer qntEstoque) {
+  public String salvar(Long codProduto, String nome, double precoProduto,int qntEstoque, String tipoProduto) {
     try {
-    	Produto produto = new Produto(codProduto, nome, preco, tipoProduto, qntEstoque);
+    	Produto produto = new Produto(codProduto, nome, precoProduto, qntEstoque, tipoProduto);
       _produtoDao.salvar(produto);
     }
     catch(Exception ex) {
@@ -36,6 +37,42 @@ public class ControleProduto {
 	  List<Produto> produtos = _produtoDao.getAll();
 
     return produtos;
+  }
+  
+  @RequestMapping(value="/pegar-refeicoes")
+  public List<Produto> getRefeicoes() {
+	  List<Produto> produtos =_produtoDao.getAll();
+	  List<Produto> result = new ArrayList<Produto>();
+	  for(Produto produto: produtos){
+		  if(produto.getTipoProduto().equals("Refeição")){
+			  result.add(produto);
+		  }
+	  }
+    return result;
+  }
+  
+  @RequestMapping(value="/pegar-sobremesas")
+  public List<Produto> getSobremesas() {
+	  List<Produto> produtos =_produtoDao.getAll();
+	  List<Produto> result = new ArrayList<Produto>();
+	  for(Produto produto: produtos){
+		  if(produto.getTipoProduto().equals("Sobremesa")){
+			  result.add(produto);
+		  }
+	  }
+    return result;
+  }
+  
+  @RequestMapping(value="/pegar-bebidas")
+  public List<Produto> getBebidas() {
+	  List<Produto> produtos =_produtoDao.getAll();
+	  List<Produto> result = new ArrayList<Produto>();
+	  for(Produto produto: produtos){
+		  if(produto.getTipoProduto().equals("Bebida")){
+			  result.add(produto);
+		  }
+	  }
+    return result;
   }
 
   
@@ -72,12 +109,10 @@ public class ControleProduto {
       System.out.println(ex.getMessage());
       return null;
     }
-
   }
-
   
   @RequestMapping(value="/atualizarEstoque")
-  public String atualizar(@RequestParam (value="codProduto",required=true)Long codProduto, @RequestParam (value="qntEstoque",required=true)Integer qntEstoque) {
+  public String atualizar(@RequestParam (value="codProduto",required=true)Long codProduto, @RequestParam (value="qntEstoque",required=true)int qntEstoque) {
     try {
     	Produto produto = getById(codProduto);
     	produto.atualizarEstoque(produto, qntEstoque);

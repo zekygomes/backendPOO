@@ -1,4 +1,5 @@
 package com.diskrango.controllers;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,9 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.diskrango.models.Cliente;
 import com.diskrango.models.Entregador;
-import com.diskrango.models.ItensPedido;
+import com.diskrango.models.itensPedido;
 import com.diskrango.models.Pedido;
 import com.diskrango.models.Produto;
+import com.diskrango.models.dao.ClienteDao;
+import com.diskrango.models.dao.EntregadorDao;
 import com.diskrango.models.dao.PedidoDao;
 import com.diskrango.models.dao.ProdutoDao;
 
@@ -22,13 +25,23 @@ public class ControlePedido {
   @Autowired
   private PedidoDao _pedidoDao;
   
+  @Autowired
+  private ClienteDao _ClienteDao;
+  
+  Entregador entregador = new Entregador();
 
   @RequestMapping(value="/salvar")
-  public String salvar(Long id_pedido, Date data_pedido, 
-			Cliente cliente, List<ItensPedido> itensPedido, Entregador entregador, 
-			String forma_pagamento) {
+  public String salvar(Long id_pedido, 
+		  			ArrayList<itensPedido> itensPedido, 
+		  			Long idCliente,
+		  			Date data_pedido,
+		  			double valor_total,
+		  			Long idEntregador, 
+		  			String forma_pagamento,
+		  			String status) {
+	  Cliente cliente = _ClienteDao.getById(idCliente);
     try {
-    	Pedido pedido = new Pedido(id_pedido, data_pedido, cliente, itensPedido, entregador, forma_pagamento);
+    	Pedido pedido = new Pedido(id_pedido, itensPedido,  cliente, data_pedido, valor_total,idEntregador, forma_pagamento,status);
       _pedidoDao.salvar(pedido);
     }
     catch(Exception ex) {

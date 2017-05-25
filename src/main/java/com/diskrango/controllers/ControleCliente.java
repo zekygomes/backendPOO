@@ -62,7 +62,7 @@ public class ControleCliente {
   }
 
   @RequestMapping(value="/salvar")
-  public String salvar(Long id, String nome, String email,String endereco,String telefone, String pontoDeReferencia, Boolean situacao) {
+  public String salvar(Long id, String nome, String email,String endereco,String telefone, String pontoDeReferencia, String situacao) {
     try {
     	Cliente cliente = new Cliente(id, nome, email, endereco, telefone, pontoDeReferencia, situacao);
       _clienteDao.salvar(cliente);

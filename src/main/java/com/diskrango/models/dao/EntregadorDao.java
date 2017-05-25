@@ -17,6 +17,8 @@ public class EntregadorDao {
   @Autowired
   private SessionFactory _sessionFactory;
   
+  
+  
   private Session getSession() {
     return _sessionFactory.getCurrentSession();
   }

@@ -38,7 +38,7 @@ public class Cliente {
 	private String ponto_referencia_cliente;
 	
 	@Column(name="situacao_cliente")
-	private Boolean situacao_cliente;
+	private String situacao_cliente;
 	
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
     private List<Pedido> pedidos;
@@ -49,7 +49,7 @@ public class Cliente {
 	@JsonCreator
 	public Cliente(@JsonProperty("idCliente")Long id, @JsonProperty("nome")String nome, @JsonProperty("emailCliente")String email, 
 					@JsonProperty("enderecoCliente")String endereco, @JsonProperty("telefoneCliente")String telefone, 
-					@JsonProperty("pontoDeReferencia")String pontoDeReferencia, @JsonProperty("situacaoCliente")Boolean situacaoCliente) {
+					@JsonProperty("pontoDeReferencia")String pontoDeReferencia, @JsonProperty("situacaoCliente")String situacaoCliente) {
 		this.id_cliente = id;
 		this.nome = nome;
 		this.email_cliente = email;
@@ -118,11 +118,11 @@ public class Cliente {
 	}
 
 
-	public Boolean getSituacao_cliente() {
+	public String getSituacao_cliente() {
 		return situacao_cliente;
 	}
 
-	public void setSituacao_cliente(Boolean situacao_cliente) {
+	public void setSituacao_cliente(String situacao_cliente) {
 		this.situacao_cliente = situacao_cliente;
 	}
 

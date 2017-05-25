@@ -1,5 +1,6 @@
 package com.diskrango.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.criteria.From;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -30,14 +30,14 @@ public class Pedido {
     private Date data_pedido;
 
     @Column(name="valor_total")
-    private Double valor_total;
+    private double valor_total;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "cliente", referencedColumnName = "id_cliente")
     private Cliente cliente;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
-    private List<ItensPedido> itensPedido;
+    private List<itensPedido> itensPedido= new ArrayList<itensPedido>();
     
     @ManyToOne(optional = false)
     @JoinColumn(name = "entregador", referencedColumnName = "id_entregador")
@@ -53,23 +53,27 @@ public class Pedido {
 	}
 	
 	@JsonCreator
-	public Pedido(@JsonProperty("idPedido")Long id_pedido, @JsonProperty("dataPedido")Date data_pedido, 
-			@JsonProperty("valorTotal")Double valor_total, @JsonProperty("idCliente")Cliente cliente, 
-			@JsonProperty("itensPedido")List<ItensPedido> itensPedido, @JsonProperty("idEntregador")Entregador entregador, 
-			@JsonProperty("formaPagamento")String forma_pagamento, @JsonProperty("status")String status) {
+	public Pedido(@JsonProperty("idPedido")Long id_pedido, 
+			@JsonProperty("itensPedido")ArrayList<itensPedido> itensPedido,
+			@JsonProperty("idCliente")Cliente cliente,
+			@JsonProperty("dataPedido")Date data_pedido, 
+			@JsonProperty("valorTotal")double valor_total,
+			@JsonProperty("idEntregador")Long entregador, 
+			@JsonProperty("formaPagamento")String forma_pagamento, 
+			@JsonProperty("status")String status) {
 		super();
 		this.id_pedido = id_pedido;
 		this.data_pedido = data_pedido;
 		this.valor_total = valor_total;
 		this.cliente = cliente;
 		this.itensPedido = itensPedido;
-		this.entregador = entregador;
+		this.entregador.setIdEntregador(entregador);
 		this.forma_pagamento = forma_pagamento;
 		this.status = status;
 	}
 	
 	public Pedido(Long id_pedido, Date data_pedido, 
-			Cliente cliente, List<ItensPedido> itensPedido, Entregador entregador, 
+			Cliente cliente, List<itensPedido> itensPedido, Entregador entregador, 
 			String forma_pagamento) {
 		super();
 		this.id_pedido = id_pedido;
@@ -83,10 +87,10 @@ public class Pedido {
 	@Override
 	public String toString() {
 		return "Pedido [{id_pedido='" + id_pedido + '\'' +
-					 ", data_pedido='" + data_pedido + '\'' +
-					 ", valor_total='" + valor_total + '\'' +
-					 ", cliente='" + cliente + '\'' +
-					 ", ItensPedido {itensPedido='" + itensPedido + '\''+"}" +
+					", ItensPedido {itensPedido='" + itensPedido + '\''+"}" +	 
+					", cliente='" + cliente + '\'' +
+					", data_pedido='" + data_pedido + '\'' +
+					", valor_total='" + valor_total + '\'' +
 					 ", entregador='" + entregador + '\'' +
 					 ", forma_pagamento='" + forma_pagamento + '\'' +
 					 ", status='" + status + '\'' +"}]";
@@ -108,11 +112,11 @@ public class Pedido {
 		this.data_pedido = data_pedido;
 	}
 
-	public Double getValor_total() {
+	public double getValor_total() {
 		return valor_total;
 	}
 
-	public void setValor_total(Double valor_total) {
+	public void setValor_total(double valor_total) {
 		this.valor_total = valor_total;
 	}
 
@@ -124,11 +128,11 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	public List<ItensPedido> getItensPedido() {
+	public List<itensPedido> getItensPedido() {
 		return itensPedido;
 	}
 
-	public void setItensPedido(List<ItensPedido> itensPedido) {
+	public void setItensPedido(List<itensPedido> itensPedido) {
 		this.itensPedido = itensPedido;
 	}
 
@@ -156,9 +160,9 @@ public class Pedido {
 		this.status = status;
 	}
 	
-	private double gerarValorTotal(List<ItensPedido> itensPedido){
+	private double gerarValorTotal(List<itensPedido> itensPedido){
 		double result=0;
-		for(ItensPedido pedido: itensPedido ){
+		for(itensPedido pedido: itensPedido ){
 			result += pedido.getPreco_total();
 		}
 		
