@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.diskrango.models.Cliente;
 import com.diskrango.models.Produto;
+import com.diskrango.models.dao.ItemPedidoDao;
 import com.diskrango.models.dao.ProdutoDao;
 
 @RestController
@@ -17,7 +18,8 @@ public class ControleProduto {
 	
   @Autowired
   private ProdutoDao _produtoDao;
-  
+  @Autowired
+  private ItemPedidoDao _itemPedidoDao;
 
   @RequestMapping(value="/salvar")
   public String salvar(Long codProduto, String nome, double precoProduto,int qntEstoque, String tipoProduto) {
@@ -44,7 +46,7 @@ public class ControleProduto {
 	  List<Produto> produtos =_produtoDao.getAll();
 	  List<Produto> result = new ArrayList<Produto>();
 	  for(Produto produto: produtos){
-		  if(produto.getTipoProduto().equals("Refeição")){
+		  if(produto.getTipo_produto().equals("Refeição")){
 			  result.add(produto);
 		  }
 	  }
@@ -56,7 +58,7 @@ public class ControleProduto {
 	  List<Produto> produtos =_produtoDao.getAll();
 	  List<Produto> result = new ArrayList<Produto>();
 	  for(Produto produto: produtos){
-		  if(produto.getTipoProduto().equals("Sobremesa")){
+		  if(produto.getTipo_produto().equals("Sobremesa")){
 			  result.add(produto);
 		  }
 	  }
@@ -68,7 +70,7 @@ public class ControleProduto {
 	  List<Produto> produtos =_produtoDao.getAll();
 	  List<Produto> result = new ArrayList<Produto>();
 	  for(Produto produto: produtos){
-		  if(produto.getTipoProduto().equals("Bebida")){
+		  if(produto.getTipo_produto().equals("Bebida")){
 			  result.add(produto);
 		  }
 	  }

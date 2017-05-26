@@ -26,22 +26,25 @@ public class Produto {
 	private String nome;
 
 	@Column(name="preco_produto")
-	private double preco_produto;
+	private Double preco_produto;
 	
 	@Column(name="tipo_produto")
 	private String tipo_produto;
 	
 	@Column(name="qnt_produto")
-	private int qnt_estoque;
+	private Integer qnt_estoque;
 	
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "produto")
-    private List<itensPedido> itensPedido;
+    private List<ItemPedido> itensPedido;
     
     public Produto(){}
 	
     @JsonCreator
-	public Produto(@JsonProperty("codProduto")Long codProduto,@JsonProperty("nome")String nome, @JsonProperty("precoProduto")double precoProduto, 
-			@JsonProperty("qntEstoque")int qntEstoque, @JsonProperty("tipoProduto")String tipoProduto)  {
+	public Produto(@JsonProperty("codProduto")Long codProduto,
+			@JsonProperty("nome")String nome, 
+			@JsonProperty("precoProduto")Double precoProduto, 
+			@JsonProperty("qntEstoque")Integer qntEstoque, 
+			@JsonProperty("tipoProduto")String tipoProduto)  {
 		this.cod_produto = codProduto;
 		this.nome = nome;
 		this.preco_produto = precoProduto;
@@ -63,12 +66,12 @@ public class Produto {
 		produto.qnt_estoque = qntEstoque;
 	}
 
-	public Long getCodProduto() {
+	public Long getCod_produto() {
 		return cod_produto;
 	}
 
-	public void setCodProduto(Long codProduto) {
-		this.cod_produto = codProduto;
+	public void setCod_produto(Long cod_produto) {
+		this.cod_produto = cod_produto;
 	}
 
 	public String getNome() {
@@ -79,30 +82,37 @@ public class Produto {
 		this.nome = nome;
 	}
 
-	public double getValor() {
+	public Double getPreco_produto() {
 		return preco_produto;
 	}
 
-	public void setValor(double valor) {
-		this.preco_produto = valor;
+	public void setPreco_produto(Double preco_produto) {
+		this.preco_produto = preco_produto;
 	}
 
-	public String getTipoProduto() {
+	public String getTipo_produto() {
 		return tipo_produto;
 	}
 
-	public void setTipoProduto(String tipoProduto) {
-		this.tipo_produto = tipoProduto;
+	public void setTipo_produto(String tipo_produto) {
+		this.tipo_produto = tipo_produto;
 	}
 
-	public int getQntProduto() {
+	public Integer getQnt_estoque() {
 		return qnt_estoque;
 	}
 
-	public void setQntProduto(int qntProduto) {
-		this.qnt_estoque = qntProduto;
+	public void setQnt_estoque(Integer qnt_estoque) {
+		this.qnt_estoque = qnt_estoque;
 	}
 
+	public List<ItemPedido> getItensPedido() {
+		return itensPedido;
+	}
+
+	public void setItensPedido(List<ItemPedido> itensPedido) {
+		this.itensPedido = itensPedido;
+	}
 
 
 }

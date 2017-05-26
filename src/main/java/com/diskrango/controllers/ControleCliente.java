@@ -16,7 +16,26 @@ public class ControleCliente {
 	
   @Autowired
   private ClienteDao _clienteDao;
-    
+   
+  @RequestMapping(value="/salvar")
+  public String salvar(Long id, 
+		  String nome, 
+		  String email,
+		  String endereco,
+		  String telefone, 
+		  String pontoDeReferencia, 
+		  String situacao,
+		  Integer devolucao) {
+    try {
+    	Cliente cliente = new Cliente(id, nome, email, endereco, telefone, pontoDeReferencia, situacao, devolucao);
+      _clienteDao.salvar(cliente);
+    }
+    catch(Exception ex) {
+      return ex.getMessage();
+    }
+    return "Cliente salvo com sucesso!";
+  }
+  
   @RequestMapping(value="/pegar-todos")
   public List<Cliente> getAll() {
  
@@ -60,18 +79,5 @@ public class ControleCliente {
     }
 
   }
-
-  @RequestMapping(value="/salvar")
-  public String salvar(Long id, String nome, String email,String endereco,String telefone, String pontoDeReferencia, String situacao) {
-    try {
-    	Cliente cliente = new Cliente(id, nome, email, endereco, telefone, pontoDeReferencia, situacao);
-      _clienteDao.salvar(cliente);
-    }
-    catch(Exception ex) {
-      return ex.getMessage();
-    }
-    return "Cliente salvo com sucesso!";
-  }
-  
 
 }

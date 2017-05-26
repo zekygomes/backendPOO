@@ -30,14 +30,14 @@ public class Pedido {
     private Date data_pedido;
 
     @Column(name="valor_total")
-    private double valor_total;
+    private Double valor_total;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "cliente", referencedColumnName = "id_cliente")
     private Cliente cliente;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
-    private List<itensPedido> itensPedido= new ArrayList<itensPedido>();
+    private List<ItemPedido> itensPedido= new ArrayList<ItemPedido>();
     
     @ManyToOne(optional = false)
     @JoinColumn(name = "entregador", referencedColumnName = "id_entregador")
@@ -54,10 +54,9 @@ public class Pedido {
 	
 	@JsonCreator
 	public Pedido(@JsonProperty("idPedido")Long id_pedido, 
-			@JsonProperty("itensPedido")ArrayList<itensPedido> itensPedido,
-			@JsonProperty("idCliente")Cliente cliente,
+			@JsonProperty("idCliente")Long cliente,
 			@JsonProperty("dataPedido")Date data_pedido, 
-			@JsonProperty("valorTotal")double valor_total,
+			@JsonProperty("valorTotal")Double valor_total,
 			@JsonProperty("idEntregador")Long entregador, 
 			@JsonProperty("formaPagamento")String forma_pagamento, 
 			@JsonProperty("status")String status) {
@@ -65,23 +64,16 @@ public class Pedido {
 		this.id_pedido = id_pedido;
 		this.data_pedido = data_pedido;
 		this.valor_total = valor_total;
-		this.cliente = cliente;
-		this.itensPedido = itensPedido;
+		this.cliente.setId_cliente(cliente);
 		this.entregador.setIdEntregador(entregador);
 		this.forma_pagamento = forma_pagamento;
 		this.status = status;
 	}
 	
-	public Pedido(Long id_pedido, Date data_pedido, 
-			Cliente cliente, List<itensPedido> itensPedido, Entregador entregador, 
-			String forma_pagamento) {
-		super();
+
+	public Pedido(Long id_pedido, List<ItemPedido> itensPedido) {
 		this.id_pedido = id_pedido;
-		this.data_pedido = data_pedido;
-		this.cliente = cliente;
 		this.itensPedido = itensPedido;
-		this.entregador = entregador;
-		this.forma_pagamento = forma_pagamento;
 	}
 
 	@Override
@@ -111,14 +103,15 @@ public class Pedido {
 	public void setData_pedido(Date data_pedido) {
 		this.data_pedido = data_pedido;
 	}
-
-	public double getValor_total() {
+	
+	public Double getValor_total() {
 		return valor_total;
 	}
 
-	public void setValor_total(double valor_total) {
+	public void setValor_total(Double valor_total) {
 		this.valor_total = valor_total;
 	}
+
 
 	public Cliente getCliente() {
 		return cliente;
@@ -128,11 +121,23 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	public List<itensPedido> getItensPedido() {
+	public List<ItemPedido> getItensPedido() {
 		return itensPedido;
 	}
 
-	public void setItensPedido(List<itensPedido> itensPedido) {
+	public void setItensPedido(List<ItemPedido> itensPedido) {
+		this.itensPedido = itensPedido;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public List<ItemPedido> getItemPedido() {
+		return itensPedido;
+	}
+
+	public void setItemPedido(List<ItemPedido> itensPedido) {
 		this.itensPedido = itensPedido;
 	}
 
@@ -160,9 +165,9 @@ public class Pedido {
 		this.status = status;
 	}
 	
-	private double gerarValorTotal(List<itensPedido> itensPedido){
+	private double gerarValorTotal(List<ItemPedido> itensPedido){
 		double result=0;
-		for(itensPedido pedido: itensPedido ){
+		for(ItemPedido pedido: itensPedido ){
 			result += pedido.getPreco_total();
 		}
 		

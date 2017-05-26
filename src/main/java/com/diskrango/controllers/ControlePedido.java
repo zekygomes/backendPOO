@@ -8,15 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.diskrango.models.Cliente;
 import com.diskrango.models.Entregador;
-import com.diskrango.models.itensPedido;
+import com.diskrango.models.ItemPedido;
 import com.diskrango.models.Pedido;
-import com.diskrango.models.Produto;
-import com.diskrango.models.dao.ClienteDao;
-import com.diskrango.models.dao.EntregadorDao;
+import com.diskrango.models.dao.ItemPedidoDao;
 import com.diskrango.models.dao.PedidoDao;
-import com.diskrango.models.dao.ProdutoDao;
 
 @RestController
 @RequestMapping(value="/api/pedido")
@@ -24,24 +20,23 @@ public class ControlePedido {
 	
   @Autowired
   private PedidoDao _pedidoDao;
-  
   @Autowired
-  private ClienteDao _ClienteDao;
+  private ItemPedidoDao _itemPedidoDao;  
   
   Entregador entregador = new Entregador();
 
   @RequestMapping(value="/salvar")
   public String salvar(Long id_pedido, 
-		  			ArrayList<itensPedido> itensPedido, 
+		  			ArrayList<ItemPedido> itensPedido, 
 		  			Long idCliente,
 		  			Date data_pedido,
 		  			double valor_total,
 		  			Long idEntregador, 
 		  			String forma_pagamento,
 		  			String status) {
-	  Cliente cliente = _ClienteDao.getById(idCliente);
-    try {
-    	Pedido pedido = new Pedido(id_pedido, itensPedido,  cliente, data_pedido, valor_total,idEntregador, forma_pagamento,status);
+	  _itemPedidoDao.salvar(itensPedido);
+	  try {
+    	Pedido pedido = new Pedido(id_pedido, idCliente, data_pedido, valor_total,idEntregador, forma_pagamento,status);
       _pedidoDao.salvar(pedido);
     }
     catch(Exception ex) {
@@ -52,9 +47,7 @@ public class ControlePedido {
   
   @RequestMapping(value="/pegar-todos")
   public List<Pedido> getAll() {
- 
 	  List<Pedido> pedidos = _pedidoDao.getAll();
-
     return pedidos;
   }
 

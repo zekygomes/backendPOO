@@ -1,5 +1,4 @@
 package com.diskrango.models;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "itens_pedido")
-public class itensPedido {
+public class ItemPedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,26 +37,29 @@ public class itensPedido {
     private Produto produto;
     
     @JsonCreator
-	public itensPedido(@JsonProperty("idItensPedido")Long id_itenspedido, @JsonProperty("precoUnitario")Double preco_unitario, 
-			@JsonProperty("quantidade")Integer quantidade, @JsonProperty("precoTotal")Double preco_total,
-			@JsonProperty("idPedido")Pedido pedido, @JsonProperty("idProduto")Produto produto) {
-		super();
+	public ItemPedido(@JsonProperty("idItemPedido")Long id_itenspedido, 
+			@JsonProperty("precoUnitario")Double preco_unitario, 
+			@JsonProperty("quantidade")Integer quantidade, 
+			@JsonProperty("precoTotal")Double preco_total,
+			@JsonProperty("idPedido")Long idPedido, 
+			@JsonProperty("idProduto")Long idProduto) {
 		this.id_itenspedido = id_itenspedido;
 		this.preco_unitario = preco_unitario;
 		this.quantidade = quantidade;
 		this.preco_total = preco_total;
-		this.pedido = pedido;
-		this.produto = produto;
+		this.pedido.setId_pedido(idPedido);
+		this.produto.setCod_produto(idProduto);
 	}
+    
 
 	@Override
 	public String toString() {
-		return "ItensPedido {id_itenspedido='" + id_itenspedido + '\'' + 
-				", preco_unitario='" + preco_unitario + '\'' + 
+		return "ItensPedido {idItemPedido='" + id_itenspedido + '\'' + 
+				", precoUnitario='" + preco_unitario + '\'' + 
 				", quantidade='"+ quantidade + '\'' + 
-				", preco_total='" + preco_total + '\'' + 
-				", pedido='" + pedido + '\'' + 
-				", produto='" + produto + '\'' + "}";
+				", precoTotal='" + preco_total + '\'' + 
+				", idPedido='" + pedido + '\'' + 
+				", idProduto='" + produto + '\'' + "}";
 	}
 
 	public Long getId_itenspedido() {
@@ -92,21 +94,27 @@ public class itensPedido {
 		this.preco_total = preco_total;
 	}
 
+
 	public Pedido getPedido() {
 		return pedido;
 	}
+
 
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
 
+
 	public Produto getProduto() {
 		return produto;
 	}
 
+
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+
+
     
     
 }
